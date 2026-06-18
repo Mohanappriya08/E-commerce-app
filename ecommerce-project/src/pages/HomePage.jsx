@@ -4,25 +4,22 @@ import { useEffect,useState } from 'react';
 import './HomePage.css';
 import {Header} from '../components/Header';
 import { Products } from '../components/Products';
-function HomePage(){
+function HomePage({cart}){
+    
     const [products,setProducts] = useState([]);
-    const[cartItems,setCartItems] = useState([]);
     useEffect(()=>{
     axios.get(`http://localhost:3000/api/products`)
     .then((response)=>{
             setProducts(response.data);
         });
 
-    axios.get(`http://localhost:3000/api/cart-items`).then((response)=>{
-        setCartItems(response.data);
-        console.log(response.data);
-    });
+    
     },[]);
 
     return (
     <div>
         <title>Ecommerce Project</title>
-        <Header cart={cartItems}/>
+        <Header cart={cart}/>
         <div className="home-page">
             <div className="products-grid">
                 {products.map((product,index) => 
