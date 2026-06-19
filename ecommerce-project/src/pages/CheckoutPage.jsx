@@ -29,7 +29,7 @@ export function CheckoutPage({ cart }) {
 
                     <div className="checkout-header-middle-section">
                         Checkout (<a className="return-to-home-link"
-                            href="/">3 items</a>)
+                            href="/">{cart.length} items</a>)
                     </div>
 
                     <div className="checkout-header-right-section">
@@ -42,11 +42,12 @@ export function CheckoutPage({ cart }) {
 
                 <div className="checkout-grid">
                     <div className="order-summary">
-                        {cart.map((item, index) => {
+                        {deliveryOptions.length>0 && cart.map((item, index) => {
+                            const selectedDeliveryOption = deliveryOptions.find((option)=>{return option.id === item.deliveryOptionId});
                             return (
                                 <div key={item.productId} className="cart-item-container">
                                     <div className="delivery-date">
-                                        Delivery date: Tuesday, June 21
+                                        Delivery date: { dayjs(selectedDeliveryOption.estimatedDeliveryTimeMs).format('dddd, MMMM D')}
                                     </div>
 
                                     <div className="cart-item-details-grid">
@@ -79,17 +80,17 @@ export function CheckoutPage({ cart }) {
                                             </div>
                                                 {deliveryOptions.map((option, index) => {
                                                     let priceString = 'FREE Shipping';
-                                                    if(deliveryOptions.priceCents > 0){
-                                                        priceString = `${formatMoney(deliveryOptions.priceCents)} - Shipping`;
+                                                    if(option.priceCents > 0){
+                                                        priceString = `${formatMoney(option.priceCents)} - Shipping`;
                                                     }
                                                     return (
                                                         <div className="delivery-option" key={option.id}>
-                                                            <input type="radio" checked={option.id === item.deliveryOptionId}
+                                                            <input type="radio" defaultChecked={option.id === item.deliveryOptionId}
                                                                 className="delivery-option-input"
                                                                 name={`delivery-option-${item.productId}`}/>
                                                             <div>
                                                                 <div className="delivery-option-date">
-                                                                   {dayjs(option.estimatedDeliveryTimeMs.estimatedDeliveryTimeMs).format('dddd, MMMM D')}
+                                                                   {dayjs(option.estimatedDeliveryTimeMs).format('dddd, MMMM D')}
                                                                 </div>
                                                                 <div className="delivery-option-price">
                                                                     {priceString}
