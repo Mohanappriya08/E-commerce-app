@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { CheckoutHeader } from './CheckoutHeader';
 import { OrderSummary } from './OrderSummary';
+import {PaymentSummary} from './PaymentSummary';
 import { formatMoney } from '../../utils/money';
 
 export function CheckoutPage({ cart }) {
