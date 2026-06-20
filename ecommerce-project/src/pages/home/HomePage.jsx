@@ -2,8 +2,8 @@ import axios from 'axios';
 import React from 'react';
 import { useEffect,useState } from 'react';
 import './HomePage.css';
-import {Header} from '../components/Header';
-import { Products } from '../components/Products';
+import {Header} from '../../components/Header';
+import { Products } from './ProductsGrid';
 function HomePage({cart}){
     
     const [products,setProducts] = useState([]);
