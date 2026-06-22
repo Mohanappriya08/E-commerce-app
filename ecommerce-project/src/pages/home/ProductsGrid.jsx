@@ -1,4 +1,5 @@
 import {formatMoney} from '../../utils/money';
+import axios from 'axios';
 export function Products(props){
     return (
         <>
@@ -46,7 +47,15 @@ export function Products(props){
                 Added
                 </div>
 
-                <button className="add-to-cart-button button-primary">
+                <button className="add-to-cart-button button-primary" onClick={()=>{
+                    axios.post('/api/cart-items', {
+                        productId: props.id,
+                        quantity: 1
+                    }).then((response) => {
+                        console.log(response.data);
+                        props.setCart(response.data);
+                    })
+                }}>
                 Add to Cart
                 </button>
             </div>
